@@ -1,0 +1,99 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class Books {
+int price, sp;
+char tt[10], aut[10], pub[10];
+
+public:
+void accept();
+void display();
+bool search(const char*, const char*);  
+};
+
+
+void Books::accept() {
+cout << "Enter the title: ";
+cin >> tt;
+cout << "Enter the author: ";
+cin >> aut;
+cout << "Enter the publisher name: ";
+cin >> pub;
+cout << "Enter the price: ";
+cin >> price;
+cout << "Enter the selling price: ";
+cin >> sp;
+}
+
+
+void Books::display() {
+cout << "\n" << tt << "\t" << aut << "\t" << pub << "\t" << price << "\t" << sp << endl;
+}
+
+
+bool Books::search(const char* t, const char* a) {
+if(strcmp(tt, t) == 0 && strcmp(aut, a) == 0) {
+return true;
+}
+return false;
+}
+
+int main() {
+int n, ch;
+cout << "Enter the total number of books: ";
+cin >> n;
+    
+Books b[100];
+
+do {
+cout << "\nMain Menu\n";
+cout << "1. Accept\n2. Display\n3. Search\n0. Exit\n";
+cout << "Enter your choice: ";
+cin >> ch;
+
+switch(ch) {
+case 1:
+for(int i = 0; i < n; i++) {
+cout << "\nEnter details of book " << i + 1 << ":\n";
+b[i].accept();
+}
+break;
+
+case 2:
+cout << "\nDetails of all books:\n";
+for(int i = 0; i < n; i++) {
+b[i].display();
+}
+break;
+
+case 3: {
+char t[10], a[10];
+cout << "\nEnter the title and author to search: ";
+cin >> t >> a;
+                
+bool found = false;
+for(int i = 0; i < n; i++) {
+if(b[i].search(t, a)) {
+cout << "\nBook found:\n";
+b[i].display();
+found = true;
+break;
+}
+}
+if (!found) {
+cout << "\nBook not found.\n";
+}
+break;
+}
+
+case 0:
+cout << "Exiting program.\n";
+break;
+default:
+cout << "Invalid choice! Please try again.\n";
+}
+} while(ch != 0);
+
+return 0;
+}
